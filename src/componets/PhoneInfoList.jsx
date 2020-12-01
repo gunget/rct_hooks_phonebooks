@@ -5,12 +5,11 @@ import PhoneInfo from "./PhoneInfo";
 const PhoneInfoList = () => {
   const { information } = useContext(FbContext);
   const list = information.map((data) => {
-    <PhoneInfo key={data.id} />;
+    return <PhoneInfo key={data.id} data={data} />;
+    // arrow function사용시 한문장이면 {return}생략 가능
+    // 여러줄일 경우 {}를 쓰고 반드시 return을 넣어줘야 함
   });
-  // const list = [<PhoneInfo key="1" />, <PhoneInfo key="2" />];
 
-  // 왜 map을해서 phoneinfo에 넣었는데 표현이 안될까.
-  // map함수를 정확히 다시 공부 할 것
   return <ul>{list}</ul>;
 };
 
