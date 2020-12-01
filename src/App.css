@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.container {
+  background-color: rgb(190, 238, 190);
+  display: block;
+  text-align: center;
+  line-height: 50px;
+  padding: 30px;
+  width: 95%;
+  height: auto;
+  margin: 30px auto;
+}
