@@ -1,0 +1,10 @@
+정리하면, fetch 가 진행되기 전까지 로컬작업 환경은 리포지토리의 상황을 알지 못하며
+ fetch 를 통해 repository 의 정보를 가져오며 이때 로컬파일들에 어떠한 변경도 만들지 않는다.  
+
+이렇게 업데이트 된 정보를 이용해서 merge, log 등의 작업을 진행한다. 따라서, 특히 리포지토리에
+ push 등의 작업을 할 경우 내 로컬 작업 환경에 리포지토리의 커밋내역을 정확히 가지고 있지 않으면 
+정상적으로 push 가 되지 않고 에러가 난다.
+
+그래서 일반적(충돌- conflict 이 일어나지 않는 경우)으로 push 할 때 작업수행은 아래와 같이 진행한다. 
+
+git add . && git commit -m 'message' && git fetch origin master && git merge origin/master && git push origin master
