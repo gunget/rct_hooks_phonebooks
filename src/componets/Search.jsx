@@ -1,6 +1,7 @@
 import React from "react";
 
 const Search = () => {
+  console.log("Search 실행");
   return (
     <form>
       <input type="text" placeholder="검색어"></input>

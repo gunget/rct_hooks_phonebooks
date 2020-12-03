@@ -1,6 +1,7 @@
 import React from "react";
 
 const InputForm = () => {
+  console.log("InputForm 실행");
   return (
     <>
       <form>

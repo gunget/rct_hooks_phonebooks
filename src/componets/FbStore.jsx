@@ -1,10 +1,11 @@
-import React, { useRef, createContext, useReducer } from "react";
-import useFetch from "./useFetch";
+import React, { createContext, useReducer, useEffect } from "react";
+import useFetch from "./useFetch.jsx";
 
 export const FbContext = createContext();
 
 const Reducer = (Fbooks, { type, payload }) => {
-  const idRef = useRef(3);
+  // const idRef = useRef(3);
+  console.log("reducer 실행됨");
   switch (type) {
     case "SET_INIT_DATA":
       return payload;
@@ -24,8 +25,18 @@ const FbStore = (props) => {
   const [Fbooks, dispatch] = useReducer(Reducer, {});
   const loading = useFetch(dispatch);
 
+  console.log("FbStore.js 실행");
+  console.log(loading);
+
+  useEffect(() => {
+    console.log("Fbstore쪽 useEffect");
+    console.log(Fbooks);
+  }, [Fbooks]);
+
   return (
-    <FbContext.Provider value={Fbooks}>{props.children}</FbContext.Provider>
+    <FbContext.Provider value={(Fbooks, loading)}>
+      {props.children}
+    </FbContext.Provider>
   );
 };
 
