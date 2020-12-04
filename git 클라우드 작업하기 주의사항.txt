@@ -8,3 +8,20 @@
 그래서 일반적(충돌- conflict 이 일어나지 않는 경우)으로 push 할 때 작업수행은 아래와 같이 진행한다. 
 
 git add . && git commit -m 'message' && git fetch origin master && git merge origin/master && git push origin master
+
+
+---------- react 프로젝트 github에서 받아서 실행하는 방법
+Open your terminal and then type
+
+$ git clone {the url to the GitHub repo}
+
+This clones the repo
+
+cd into the new folder and type
+
+$ npm install (nodejs 미리 설치 되어있어야 함)
+
+This installs the required dependencies
+
+To run the React project.
+$ npm start
