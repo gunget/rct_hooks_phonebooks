@@ -10,6 +10,13 @@
 git add . && git commit -m 'message' && git fetch origin master && git merge origin/master && git push origin master
 
 
+---------- 여러대의 pc에서 깃허브로 작업하기
+1. 새로운 pc로 가서 git 설치
+2. git clone "repository 주소"로 내용 복사
+3. 작업한 뒤 git add . && git commit -m 'message' && git fetch origin master && git merge origin/master && git push origin master
+4. git Id와 password를 묻는 팝업 뜸
+   !!!! 이때 반드시 기본브라우저가 chrome이나 edge여야함. explore로 되어있으면 authorize버튼이 안 눌러짐 
+
 ---------- react 프로젝트 github에서 받아서 실행하는 방법
 Open your terminal and then type
 
@@ -17,7 +24,7 @@ $ git clone {the url to the GitHub repo}
 
 This clones the repo
 
-cd into the new folder and type
+cd into the new folder and typegit
 
 $ npm install (nodejs 미리 설치 되어있어야 함)
 
@@ -25,3 +32,4 @@ This installs the required dependencies
 
 To run the React project.
 $ npm start
+
