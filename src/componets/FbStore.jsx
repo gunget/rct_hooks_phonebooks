@@ -34,7 +34,8 @@ const FbStore = (props) => {
   }, [Fbooks]);
 
   return (
-    <FbContext.Provider value={(Fbooks, loading)}>
+    <FbContext.Provider value={{Fbooks, loading}}>
+      {/* 복수개의 state를 context로 쓰려면 반드시 객체로 넘겨야 함 */}
       {props.children}
     </FbContext.Provider>
   );
