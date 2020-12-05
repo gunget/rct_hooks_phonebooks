@@ -1,28 +1,11 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import useFetch from "./useFetch.jsx";
+import FbReducer from "./FbReducer";
 
 export const FbContext = createContext();
 
-const Reducer = (Fbooks, { type, payload }) => {
-  // const idRef = useRef(3);
-  console.log("reducer 실행됨");
-  switch (type) {
-    case "SET_INIT_DATA":
-      return payload;
-
-    // case "ADD_NUM_DATA":
-    //   return {
-    //     id: imformation.length + 1,
-    //     imformation: [...imformation, payload],
-    //   };
-
-    default:
-      break;
-  }
-};
-
 const FbStore = (props) => {
-  const [Fbooks, dispatch] = useReducer(Reducer, {});
+  const [Fbooks, dispatch] = useReducer(FbReducer, {});
   const loading = useFetch(dispatch);
 
   console.log("FbStore.js 실행");
@@ -34,7 +17,7 @@ const FbStore = (props) => {
   }, [Fbooks]);
 
   return (
-    <FbContext.Provider value={{Fbooks, loading}}>
+    <FbContext.Provider value={{ Fbooks, loading, dispatch }}>
       {/* 복수개의 state를 context로 쓰려면 반드시 객체로 넘겨야 함 */}
       {props.children}
     </FbContext.Provider>
