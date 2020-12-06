@@ -14,6 +14,7 @@ const InputForm = () => {
         id: Fbooks.idx + 1,
         name: nameRef.current.value,
         number: numberRef.current.value,
+        editing: false,
       },
     });
     nameRef.current.value = "";
