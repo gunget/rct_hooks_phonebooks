@@ -20,7 +20,7 @@ const useFetch = (callback) => {
     const fbFromLS = JSON.parse(localStorage.getItem("Fbooks"));
 
     if (fbFromLS) {
-      callback({ type: "SET_INIT_DATA", payload: fbFromLS.information });
+      callback({ type: "SET_INIT_DATA", payload: fbFromLS });
     } else {
       callback({ type: "SET_INIT_DATA", payload: defaultUser });
     }

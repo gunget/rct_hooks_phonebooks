@@ -4,6 +4,7 @@ import FbReducer from "./FbReducer";
 import InputForm from "./InputForm";
 import Search from "./Search";
 import PhoneInfoList from "./PhoneInfoList";
+import LocalStorageBtn from "./LocalStorageBtn";
 
 export const FbContext = createContext();
 //Context를 사용하면 props를 자식컴포넌트에 전역적으로 쓸 수 있다는 장점이 있다.
@@ -27,20 +28,21 @@ const FbStore = (props) => {
         return obj.name.indexOf(Fbooks.search) !== -1;
       });
 
-  const saveToLS = (e) => {
-    e.preventDefault();
-    localStorage.setItem("Fbooks", JSON.stringify(Fbooks));
-    alert("전화번호부가 브라우저에 저장되었습니다.");
-  };
-  const deleteLS = (e) => {
-    e.preventDefault();
-    if (window.confirm("정말 전화번호부를 삭제하시겠습니까?")) {
-      localStorage.clear();
-      alert("삭제되었습니다");
-    } else {
-      alert("삭제가 취소되었습니다.");
-    }
-  };
+  // const saveToLS = (e) => {
+  //   e.preventDefault();
+  //   localStorage.setItem("Fbooks", JSON.stringify(Fbooks));
+  //   alert("전화번호부가 브라우저에 저장되었습니다.");
+  // };
+
+  // const deleteLS = (e) => {
+  //   e.preventDefault();
+  //   if (window.confirm("정말 전화번호부를 삭제하시겠습니까?")) {
+  //     localStorage.clear();
+  //     alert("삭제되었습니다");
+  //   } else {
+  //     alert("삭제가 취소되었습니다.");
+  //   }
+  // };
 
   useEffect(() => {
     console.log("Fbstore쪽 useEffect");
@@ -59,8 +61,9 @@ const FbStore = (props) => {
       <FbContext.Provider value={{ Fbooks, searchedList, loading, dispatch }}>
         <PhoneInfoList />
       </FbContext.Provider>
-      <button onClick={saveToLS}>브라우저에 백업</button>
-      <button onClick={deleteLS}>백업 삭제</button>
+      {/* <button onClick={saveToLS}>브라우저에 백업</button>
+      <button onClick={deleteLS}>백업 삭제</button> */}
+      <LocalStorageBtn Fbooks={Fbooks} />
     </>
   );
 };

@@ -5,11 +5,11 @@ const FbReducer = (Fbooks, { type, payload }) => {
 
   switch (type) {
     case "SET_INIT_DATA":
-      const _information = payload.map((obj) => {
+      const _information = payload.information.map((obj) => {
         return { ...obj, editing: false }; //fetch해온 obj에 필요한 값 추가하기
         // editing이란 속성을 개별 입력값마다 집어넣어줌
       });
-      return { idx: 2, information: _information, search: '' };
+      return { idx: payload.idx, information: _information, search: "" };
 
     case "ADD_Fb_DATA":
       const _idx = payload.id;
@@ -44,12 +44,11 @@ const FbReducer = (Fbooks, { type, payload }) => {
     //안의 일부 내용을 바꿔 새로운 객체를 선언해서 반환하는 것이기에 불변성 준수
 
     case "SEARCH_NAME":
-      return { ...Fbooks, search:payload };
-      
+      return { ...Fbooks, search: payload };
+
     default:
-      return 'nothing requested';
+      return "nothing requested";
   }
 };
 
 export default FbReducer;
-
