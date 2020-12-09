@@ -23,7 +23,6 @@ const FbStore = (props) => {
   let searchedList = loading ? '' : Fbooks.information.filter((obj) => {
     return obj.name.indexOf(Fbooks.search) !== -1 
   });
-  console.log(`searcedList=${searchedList}, keyword=${Fbooks.search}`);
 
   useEffect(() => {
     console.log("Fbstore쪽 useEffect");

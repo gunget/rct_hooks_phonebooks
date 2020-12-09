@@ -1,17 +1,18 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState, useCallback } from "react";
 import { FbContext } from "./FbStore";
 
 const InputForm = () => {
-  const { Fbooks, dispatch } = useContext(FbContext);
+  const { dispatch } = useContext(FbContext);
+  let [idx, setIdx] = useState(2);
   const nameRef = useRef();
   const numberRef = useRef();
 
-  const addFbook = (e) => {
+  const addFbook = useCallback((e) => {
     e.preventDefault();
     dispatch({
       type: "ADD_Fb_DATA",
       payload: {
-        id: Fbooks.idx + 1,
+        id: idx + 1,
         name: nameRef.current.value,
         number: numberRef.current.value,
         editing: false,
@@ -19,7 +20,8 @@ const InputForm = () => {
     });
     nameRef.current.value = "";
     numberRef.current.value = "";
-  };
+    setIdx(++idx);
+  }, []);
 
   console.log("InputForm 실행");
   return (
@@ -33,4 +35,9 @@ const InputForm = () => {
   );
 };
 
-export default InputForm;
+function areEqual(predispatch, nextdispatch) {
+  return predispatch === nextdispatch;
+}
+
+
+export default React.memo(InputForm, areEqual);

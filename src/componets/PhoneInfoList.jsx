@@ -6,8 +6,6 @@ const PhoneInfoList = () => {
   console.log("PhoneInfoList 컴포넌트 실행됨");
   const { loading, searchedList } = useContext(FbContext);
   
-  console.log(`phoneInfoList Loading=${loading}`);
-    
   let list = loading ? (
     <li>"Loading..."</li>
   ) : searchedList.map((data) => {
