@@ -1,27 +1,31 @@
 import React, { useContext, useRef, useState, useCallback } from "react";
 import { FbContext } from "./FbStore";
 
-const InputForm = ({ dispatch }) => {
+const InputForm = ({ dispatch, index }) => {
   // const { dispatch } = useContext(FbContext);
-  let [idx, setIdx] = useState(2);
+  // let [idx, setIdx] = useState(index);
   const nameRef = useRef();
   const numberRef = useRef();
+  console.log("inputform인덱스", index);
 
-  const addFbook = useCallback((e) => {
-    e.preventDefault();
-    dispatch({
-      type: "ADD_Fb_DATA",
-      payload: {
-        id: idx + 1,
-        name: nameRef.current.value,
-        number: numberRef.current.value,
-        editing: false,
-      },
-    });
-    nameRef.current.value = "";
-    numberRef.current.value = "";
-    setIdx(++idx);
-  }, []);
+  const addFbook = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch({
+        type: "ADD_Fb_DATA",
+        payload: {
+          id: index + 1,
+          name: nameRef.current.value,
+          number: numberRef.current.value,
+          editing: false,
+        },
+      });
+      nameRef.current.value = "";
+      numberRef.current.value = "";
+      // setIdx(++idx);
+    },
+    [index]
+  );
 
   console.log("InputForm 실행");
   return (

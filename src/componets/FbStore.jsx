@@ -11,7 +11,7 @@ export const FbContext = createContext();
 //이를 받아쓰는 모든 자식 컴포넌트들은, 다른 요소들에 의해 state나 dispatch가 변경되더라도
 //자신이 끌어쓰는 state가 바뀐 것이므로 재 렌더링하게 된다. 이는 최적화에 불리하다.
 
-//해결하기위한 방법은 Context를 최상위에 사용하는 방식은 지양하고, 간단한 전달은 props로
+//해결하기위한 방법은 Context를 최상위에 사용하는 방식은 지양하고, 간단한 전달은 props로,
 //props drilling이 필요한 상황에서는 그 컴포넌트만 Context를 사용하는 방식으로 접근해야
 //불필요한 재 렌더링을 막을 수 있다
 
@@ -27,6 +27,21 @@ const FbStore = (props) => {
         return obj.name.indexOf(Fbooks.search) !== -1;
       });
 
+  const saveToLS = (e) => {
+    e.preventDefault();
+    localStorage.setItem("Fbooks", JSON.stringify(Fbooks));
+    alert("전화번호부가 브라우저에 저장되었습니다.");
+  };
+  const deleteLS = (e) => {
+    e.preventDefault();
+    if (window.confirm("정말 전화번호부를 삭제하시겠습니까?")) {
+      localStorage.clear();
+      alert("삭제되었습니다");
+    } else {
+      alert("삭제가 취소되었습니다.");
+    }
+  };
+
   useEffect(() => {
     console.log("Fbstore쪽 useEffect");
     console.log(Fbooks);
@@ -39,11 +54,13 @@ const FbStore = (props) => {
     //   {props.children}
     // </FbContext.Provider>
     <>
-      <InputForm dispatch={dispatch} />
+      <InputForm dispatch={dispatch} index={Fbooks.idx} />
       <Search dispatch={dispatch} />
       <FbContext.Provider value={{ Fbooks, searchedList, loading, dispatch }}>
         <PhoneInfoList />
       </FbContext.Provider>
+      <button onClick={saveToLS}>브라우저에 백업</button>
+      <button onClick={deleteLS}>백업 삭제</button>
     </>
   );
 };
