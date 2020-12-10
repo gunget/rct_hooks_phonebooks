@@ -19,10 +19,11 @@ const useFetch = (callback) => {
 
     const fbFromLS = JSON.parse(localStorage.getItem("Fbooks"));
 
-    if (fbFromLS) {
+    if (fbFromLS !== null) {
       callback({ type: "SET_INIT_DATA", payload: fbFromLS });
     } else {
-      callback({ type: "SET_INIT_DATA", payload: defaultUser });
+      const defaultFbooks = { idx: 2, information: defaultUser, search: "" };
+      callback({ type: "SET_INIT_DATA", payload: defaultFbooks });
     }
     setTimeout(() => {
       setLoading(false); //서버에서 받아오는 시간을 loading으로 표현하려고 가짜로 넣은 것. setTimeout은 반드시 콜백함수속에 지연실행하고픈 내용을 넣어야 지연되어 실행된다.

@@ -5,11 +5,16 @@ const FbReducer = (Fbooks, { type, payload }) => {
 
   switch (type) {
     case "SET_INIT_DATA":
+      console.log("리듀서로 넘어온 payload값", payload.information);
       const _information = payload.information.map((obj) => {
         return { ...obj, editing: false }; //fetch해온 obj에 필요한 값 추가하기
         // editing이란 속성을 개별 입력값마다 집어넣어줌
       });
-      return { idx: payload.idx, information: _information, search: "" };
+      return {
+        idx: payload.idx,
+        information: _information,
+        search: payload.search,
+      };
 
     case "ADD_Fb_DATA":
       const _idx = payload.id;
