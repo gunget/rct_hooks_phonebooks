@@ -9,6 +9,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
+  form: {
+    display: "flex",
+    justifyContent: "center",
+    boxShadow: "1px 1px 3px #000",
+    padding: "30px 0",
+    borderRadius: "5px",
+    width: "95%",
+  },
 }));
 
 const InputForm = ({ dispatch, index }) => {
@@ -41,9 +49,9 @@ const InputForm = ({ dispatch, index }) => {
   console.log("InputForm 실행");
   return (
     <>
-      <form>
+      <form className={classes.form}>
         <TextField label="Name" variant="standard" ref={nameRef} size="small" />
-        <span> </span>
+        <span>&nbsp;&nbsp;</span>
         <TextField
           label="Phone-NUM"
           variant="standard"

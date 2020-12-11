@@ -5,6 +5,7 @@ import InputForm from "./InputForm";
 import Search from "./Search";
 import PhoneInfoList from "./PhoneInfoList";
 import LocalStorageBtn from "./LocalStorageBtn";
+import "../css/FbStore.css";
 
 export const FbContext = createContext();
 //Context를 사용하면 props를 자식컴포넌트에 전역적으로 쓸 수 있다는 장점이 있다.
@@ -56,8 +57,12 @@ const FbStore = (props) => {
     //   {props.children}
     // </FbContext.Provider>
     <>
-      <InputForm dispatch={dispatch} index={Fbooks.idx} />
-      <Search dispatch={dispatch} />
+      <div className="inptForm">
+        <InputForm dispatch={dispatch} index={Fbooks.idx} />
+      </div>
+      <div className="srchForm">
+        <Search dispatch={dispatch} />
+      </div>
       <FbContext.Provider value={{ Fbooks, searchedList, loading, dispatch }}>
         <PhoneInfoList />
       </FbContext.Provider>

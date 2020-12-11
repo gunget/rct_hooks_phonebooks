@@ -1,5 +1,25 @@
 import React, { useRef, useCallback } from "react";
 // import { FbContext } from "./FbStore";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import SearchIcon from "@material-ui/icons/Search";
+import ReplyIcon from "@material-ui/icons/Reply";
+import { TextField } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+    transform: "translateY(-10%)",
+  },
+  form: {
+    display: "flex",
+    justifyContent: "center",
+    boxShadow: "1px 1px 3px #000",
+    padding: "30px 0",
+    borderRadius: "5px",
+    width: "95%",
+  },
+}));
 
 const Search = ({ dispatch }) => {
   console.log("Search 실행");
@@ -21,11 +41,31 @@ const Search = ({ dispatch }) => {
     searchRef.current.value = "";
   }, []);
 
+  const classes = useStyles();
+
   return (
-    <form>
-      <input type="text" placeholder="검색어" ref={searchRef}></input>
-      <button onClick={handleSearch}>이름검색</button>
-      <button onClick={handleGoback}>목록으로</button>
+    <form className="srchForm">
+      <TextField label="Name" variant="outlined" ref={searchRef} size="small" />
+      <Button
+        variant="contained"
+        color="secondary"
+        size="small"
+        className={classes.button}
+        startIcon={<SearchIcon />} //머리부분 아이콘
+        onClick={handleSearch}
+      >
+        Search
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        size="small"
+        className={classes.button}
+        startIcon={<ReplyIcon />} //머리부분 아이콘
+        onClick={handleGoback}
+      >
+        Contents
+      </Button>
     </form>
   );
 };
