@@ -31,7 +31,13 @@ export default function DenseAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit">
-            Phone Books
+            <a
+              href="javascript:window.location.reload(true)"
+              style={{ textDecoration: "none", color: "#fff" }}
+            >
+              Phone Books
+            </a>
+            {/* <div onClick={window.location.reload}>Phone Books</div> */}
           </Typography>
         </Toolbar>
       </AppBar>

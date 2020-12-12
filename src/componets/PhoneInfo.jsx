@@ -4,6 +4,7 @@ import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { makeStyles } from "@material-ui/core/styles";
+import { TextField } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,12 +25,6 @@ const PhoneInfo = ({ data }) => {
   const [input, setInput] = useState({ name: data.name, number: data.number });
   // const [valueName, setVlNm] = useState(data.name);
   // const [valueNumber, setVlNmbr] = useState(data.number);
-
-  const style = {
-    backgroundColor: "skyblue",
-    width: "100%",
-    opacity: "0.85",
-  };
 
   const FbRemove = useCallback((e) => {
     e.preventDefault();
@@ -91,8 +86,10 @@ const PhoneInfo = ({ data }) => {
           {data.name} : {data.number}
           <span>&nbsp;&nbsp;</span>
           <ButtonGroup
+            variant="contained"
             color="primary"
-            aria-label="outlined primary button group"
+            aria-label="contained primary button group"
+            disableElevation
           >
             <Button onClick={FbRemove}>삭제</Button>
             <Button onClick={ModeChange}>수정</Button>
@@ -102,25 +99,29 @@ const PhoneInfo = ({ data }) => {
     );
   } else {
     return (
-      <div style={style} data-id={data.id} ref={itemRef}>
-        <input
-          type="text"
-          placeholder="이름"
+      <div data-id={data.id} ref={itemRef}>
+        <TextField
+          autoFocus="true"
+          label="Name"
+          variant="standard"
+          size="small"
           value={input.name}
-          // ref={nameRef}
           name="name"
           onChange={inputChange}
-        ></input>
-        <input
-          type="text"
-          placeholder="전화번호"
+        />
+        <span>&nbsp;&nbsp;</span>
+        <TextField
+          label="Phone-NUM"
+          variant="standard"
+          size="small"
           value={input.number}
-          // ref={numberRef}
           name="number"
           onChange={inputChange}
-        ></input>
-        <button onClick={FbRemove}>삭제</button>
-        <button onClick={changeFb}>적용</button>
+        />
+        <ButtonGroup color="primary" aria-label="outlined primary button group">
+          <Button onClick={FbRemove}>삭제</Button>
+          <Button onClick={changeFb}>변경</Button>
+        </ButtonGroup>
       </div>
     );
   }

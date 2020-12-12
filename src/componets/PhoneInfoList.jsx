@@ -34,7 +34,9 @@ const PhoneInfoList = () => {
   const classes = useStyles();
 
   let list = loading ? (
-    <div>"Loading..."</div>
+    <div>
+      <img src="https://media.giphy.com/media/jAYUbVXgESSti/giphy.gif" />
+    </div>
   ) : (
     searchedList.map((data) => {
       return (
