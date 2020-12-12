@@ -50,6 +50,7 @@ const InputForm = ({ dispatch, index }) => {
     <>
       <form className={classes.form}>
         <TextField
+          autoFocus="true"
           label="Name"
           variant="standard"
           inputRef={nameRef}

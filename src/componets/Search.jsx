@@ -23,12 +23,13 @@ const useStyles = makeStyles((theme) => ({
 const Search = ({ dispatch }) => {
   console.log("Search 실행");
   // const {dispatch} = useContext(FbContext);
-  const searchRef = useRef(false);
+  const searchRef = useRef();
 
-  const handleSearch = useCallback((e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     dispatch({ type: "SEARCH_NAME", payload: searchRef.current.value });
-  }, []);
+    searchRef.current.value = "";
+  };
   //컴포넌트가 재렌더링 되면 그안의 함수 선언도 다시 메모리에 띄워진다. 내용의 변화가
   //없는데도 바뀌는 건 낭비. 이를 막기위해 '변화가 없을시 기존 함수를 다시써라'라는 의미로
   //useCallback을 사용. 특정변화에만 반응하도록 하기 위해선 2번째 인자 활용. callback으로
@@ -43,7 +44,9 @@ const Search = ({ dispatch }) => {
   const classes = useStyles();
 
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit="false">
+      <input hidden="hidden" />
+      {/* 인풋창이 2개이상이면 엔터키 눌러도 submit실행 안됨. 이를 막기위함 */}
       <TextField
         label="Search"
         variant="outlined"
