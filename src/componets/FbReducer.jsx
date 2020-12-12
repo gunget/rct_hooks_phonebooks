@@ -17,6 +17,7 @@ const FbReducer = (Fbooks, { type, payload }) => {
       };
 
     case "ADD_Fb_DATA":
+      console.log("addFhoneBook 리듀서", payload);
       const _idx = payload.id;
       return {
         ...Fbooks,

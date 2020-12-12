@@ -1,4 +1,18 @@
 import React, { useCallback } from "react";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 const LocalStorageBtn = ({ Fbooks }) => {
   const saveToLS = (e) => {
@@ -17,10 +31,20 @@ const LocalStorageBtn = ({ Fbooks }) => {
     }
   }, []);
 
+  const classes = useStyles();
+
   return (
     <>
-      <button onClick={saveToLS}>브라우저에 백업</button>
-      <button onClick={deleteLS}>백업 삭제</button>
+      <ButtonGroup
+        variant="text"
+        color="primary"
+        aria-label="text primary button group"
+      >
+        <Button onClick={saveToLS}>임시 백업</Button>
+        <Button onClick={deleteLS}>백업 삭제</Button>
+      </ButtonGroup>
+      {/* <button onClick={saveToLS}>임시 백업</button>
+      <button onClick={deleteLS}>백업 삭제</button> */}
     </>
   );
 };

@@ -24,7 +24,14 @@ function App() {
       <CssBaseline />
       {/* 브라우저에 상관없이 동일한 css가 적용되도록 정규화 하는 컴포넌트 */}
       <Appbar />
-      <Container maxWidth="lg">
+      <Container
+        maxWidth="lg"
+        style={{
+          borderLeft: "1px solid rgba(0,0,0,0.2)",
+          borderRight: "1px solid rgba(0,0,0,0.2)",
+          height: "100vh",
+        }}
+      >
         <FbStore />
       </Container>
     </>

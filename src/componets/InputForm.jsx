@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "1px 1px 3px #000",
     padding: "30px 0",
     borderRadius: "5px",
-    width: "95%",
   },
 }));
 
@@ -25,10 +24,10 @@ const InputForm = ({ dispatch, index }) => {
   // let [idx, setIdx] = useState(index);
   const nameRef = useRef();
   const numberRef = useRef();
-  console.log("inputform인덱스", index);
 
   const addFbook = useCallback(
     (e) => {
+      console.log("inputform데이터---", nameRef);
       e.preventDefault();
       dispatch({
         type: "ADD_Fb_DATA",
@@ -50,13 +49,18 @@ const InputForm = ({ dispatch, index }) => {
   return (
     <>
       <form className={classes.form}>
-        <TextField label="Name" variant="standard" ref={nameRef} size="small" />
+        <TextField
+          label="Name"
+          variant="standard"
+          inputRef={nameRef}
+          size="small"
+        />
         <span>&nbsp;&nbsp;</span>
         <TextField
           label="Phone-NUM"
           variant="standard"
           size="small"
-          ref={numberRef}
+          inputRef={numberRef}
         />
         {/* <input type="text" placeholder="이름"></input>
         <input type="text" placeholder="전화번호"></input> */}

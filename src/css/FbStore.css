@@ -1,9 +1,20 @@
+.Fbstore {
+  position: relative;
+}
+
 .inptForm {
   display: block;
   margin: 30px auto;
+  width: 90%;
 }
 
 .srchForm {
   display: block;
   margin: 30px auto;
+}
+
+.lstgBtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }

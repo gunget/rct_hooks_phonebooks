@@ -9,14 +9,13 @@ import { TextField } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
-    transform: "translateY(-10%)",
+    position: "absolute",
   },
   form: {
+    position: "relative",
     display: "flex",
     justifyContent: "center",
-    boxShadow: "1px 1px 3px #000",
-    padding: "30px 0",
-    borderRadius: "5px",
+    padding: "10px 0",
     width: "95%",
   },
 }));
@@ -44,8 +43,13 @@ const Search = ({ dispatch }) => {
   const classes = useStyles();
 
   return (
-    <form className="srchForm">
-      <TextField label="Name" variant="outlined" ref={searchRef} size="small" />
+    <form className={classes.form}>
+      <TextField
+        label="Search"
+        variant="outlined"
+        inputRef={searchRef}
+        size="small"
+      />
       <Button
         variant="contained"
         color="secondary"
@@ -53,6 +57,7 @@ const Search = ({ dispatch }) => {
         className={classes.button}
         startIcon={<SearchIcon />} //머리부분 아이콘
         onClick={handleSearch}
+        style={{ transform: "translate(-160px, -10%" }}
       >
         Search
       </Button>
@@ -63,6 +68,7 @@ const Search = ({ dispatch }) => {
         className={classes.button}
         startIcon={<ReplyIcon />} //머리부분 아이콘
         onClick={handleGoback}
+        style={{ transform: "translate(168px, -10%" }}
       >
         Contents
       </Button>

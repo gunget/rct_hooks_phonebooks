@@ -1,6 +1,20 @@
 import React, { useRef, useState, useContext, useCallback } from "react";
 import { FbContext } from "./FbStore";
 import { Typography } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 const PhoneInfo = ({ data }) => {
   // props로 받음
@@ -67,15 +81,22 @@ const PhoneInfo = ({ data }) => {
     [input]
   );
 
+  const classes = useStyles();
+
   if (!data.editing) {
     return (
       // <div style={style} data-id={data.id} ref={itemRef}>
       <div data-id={data.id} ref={itemRef}>
-        <Typography variant="h6">
-          {data.name} {data.number}
-          <span> </span>
-          <button onClick={FbRemove}>삭제</button>
-          <button onClick={ModeChange}>수정</button>
+        <Typography variant="h6" style={{ color: "rgba(0,0,0,0.55)" }}>
+          {data.name} : {data.number}
+          <span>&nbsp;&nbsp;</span>
+          <ButtonGroup
+            color="primary"
+            aria-label="outlined primary button group"
+          >
+            <Button onClick={FbRemove}>삭제</Button>
+            <Button onClick={ModeChange}>수정</Button>
+          </ButtonGroup>
         </Typography>
       </div>
     );

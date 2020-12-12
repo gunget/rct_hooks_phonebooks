@@ -56,7 +56,7 @@ const FbStore = (props) => {
     //   {/* 복수개의 state를 context로 쓰려면 반드시 객체로 넘겨야 함 */}
     //   {props.children}
     // </FbContext.Provider>
-    <>
+    <div className="Fbstore">
       <div className="inptForm">
         <InputForm dispatch={dispatch} index={Fbooks.idx} />
       </div>
@@ -66,10 +66,10 @@ const FbStore = (props) => {
       <FbContext.Provider value={{ Fbooks, searchedList, loading, dispatch }}>
         <PhoneInfoList />
       </FbContext.Provider>
-      {/* <button onClick={saveToLS}>브라우저에 백업</button>
-      <button onClick={deleteLS}>백업 삭제</button> */}
-      <LocalStorageBtn Fbooks={Fbooks} />
-    </>
+      <div className="lstgBtn">
+        <LocalStorageBtn Fbooks={Fbooks} />
+      </div>
+    </div>
   );
 };
 
