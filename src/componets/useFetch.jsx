@@ -18,6 +18,7 @@ const useFetch = (callback) => {
     ];
 
     const fbFromLS = JSON.parse(localStorage.getItem("Fbooks"));
+    //fetch로 받아올 경우 이부분을 수정해야 함
 
     if (fbFromLS !== null) {
       callback({ type: "SET_INIT_DATA", payload: fbFromLS });
