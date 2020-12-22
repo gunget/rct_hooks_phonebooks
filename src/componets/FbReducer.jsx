@@ -10,11 +10,25 @@ const FbReducer = (Fbooks, { type, payload }) => {
         return { ...obj, editing: false }; //fetch해온 obj에 필요한 값 추가하기
         // editing이란 속성을 개별 입력값마다 집어넣어줌
       });
+      console.log("변경된 유저정보", _information);
       return {
-        idx: payload.idx,
+        idx: payload.id,
         information: _information,
-        search: payload.search,
+        search: "",
       };
+
+    // 기존 localStorage로 작업할 때 버전
+    // case "SET_INIT_DATA":
+    //   console.log("리듀서로 넘어온 payload값", payload.information);
+    //   const _information = payload.information.map((obj) => {
+    //     return { ...obj, editing: false }; //fetch해온 obj에 필요한 값 추가하기
+    //     // editing이란 속성을 개별 입력값마다 집어넣어줌
+    //   });
+    //   return {
+    //     idx: payload.idx,
+    //     information: _information,
+    //     search: payload.search,
+    //   };
 
     case "ADD_Fb_DATA":
       console.log("addFhoneBook 리듀서", payload);
