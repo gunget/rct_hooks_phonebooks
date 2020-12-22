@@ -1,6 +1,4 @@
 import React, { useRef, useCallback } from "react";
-import axios from "axios";
-
 // import { FbContext } from "./FbStore";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -40,18 +38,9 @@ const InputForm = ({ dispatch, index }) => {
           editing: false,
         },
       });
-
-      let data = {
-        name: nameRef.current.value,
-        number: numberRef.current.value,
-        fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
-      };
-      // axios.defaults.xsrfCookieName = "csrftoken";
-      // axios.defaults.xsrfHeaderName = "X-CSRFToken"; //웹사이트 해킹 방지용도
-      axios.post("http://127.0.0.1:8000/api/users/", data);
-
       nameRef.current.value = "";
       numberRef.current.value = "";
+      // setIdx(++idx);
     },
     [index]
   );

@@ -1,7 +1,5 @@
 import React, { useRef, useState, useContext, useCallback } from "react";
 import { FbContext } from "./FbStore";
-import axios from "axios";
-
 import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
@@ -21,26 +19,17 @@ const useStyles = makeStyles((theme) => ({
 
 const PhoneInfo = ({ data }) => {
   // props로 받음
-  const { Fbooks, dispatch } = useContext(FbContext);
+  const { dispatch } = useContext(FbContext);
   const itemRef = useRef();
 
   const [input, setInput] = useState({ name: data.name, number: data.number });
   // const [valueName, setVlNm] = useState(data.name);
   // const [valueNumber, setVlNmbr] = useState(data.number);
 
-  const FbRemove = (e) => {
+  const FbRemove = useCallback((e) => {
     e.preventDefault();
     dispatch({ type: "DEL_Fb_DATA", payload: itemRef.current.dataset.id });
-    axios.delete(
-      `http://localhost:8000/api/users/${itemRef.current.dataset.id}/`
-    );
-    if (
-      itemRef.current.dataset.id ===
-      Fbooks.information[Fbooks.information.length - 1].id
-    ) {
-      dispatch({ type: "SET_Fb_IDX", payload: itemRef.current.dataset.id });
-    }
-  };
+  }, []);
   //컴포넌트가 재렌더링 되면 그안의 함수 선언도 다시 메모리에 띄워진다. 내용의 변화가
   //없는데도 바뀌는 건 낭비. 이를 막기위해 '변화가 없을시 기존 함수을 다시써라'라는 의미로
   //useCallback을 사용. 특정변화에만 반응하도록 하기 위해선 2번째 인자 활용. callback으로
