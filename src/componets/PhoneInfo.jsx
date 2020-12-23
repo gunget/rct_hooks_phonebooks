@@ -78,11 +78,20 @@ const PhoneInfo = ({ data }) => {
       dispatch({
         type: "CHANGE_Fb",
         payload: {
-          id: data.id,
+          id: itemRef.current.dataset.id,
           name: input.name,
           number: input.number,
         },
       });
+      let data = {
+        name: input.name,
+        number: input.number,
+        fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
+      };
+      axios.put(
+        `http://localhost:8000/api/users/${itemRef.current.dataset.id}/`, //DB수정 구문
+        data
+      );
     },
     [input]
   );
@@ -112,7 +121,6 @@ const PhoneInfo = ({ data }) => {
     return (
       <div data-id={data.id} ref={itemRef}>
         <TextField
-          autoFocus="true"
           label="Name"
           variant="standard"
           size="small"
