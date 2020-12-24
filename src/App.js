@@ -1,8 +1,13 @@
 import React from "react";
 import FbStore from "./componets/FbStore";
+import SignIn from "./componets/SignIn";
+import SignUp from "./componets/SignUp";
+import NotFound from "./componets/NotFound";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Appbar from "./componets/Appbar";
 import Container from "@material-ui/core/Container";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 // import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
@@ -32,7 +37,15 @@ function App() {
           height: "100vh",
         }}
       >
-        <FbStore />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={SignIn} />
+            <Route path="/SignUp" component={SignUp} />
+            <Route component={NotFound} />
+            {/* 실제 배포시에는 이렇게 해서 API나 관리자로 접근하는 걸 막을 수도 있겠다. */}
+            {/* <Route exact path='/' component={FbStore} /> */}
+          </Switch>
+        </Router>
       </Container>
     </>
   );

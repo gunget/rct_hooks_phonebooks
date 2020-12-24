@@ -66,6 +66,7 @@ const InputForm = ({ dispatch, index }) => {
           variant="standard"
           inputRef={nameRef}
           size="small"
+          autoFocus
         />
         <span>&nbsp;&nbsp;</span>
         <TextField
