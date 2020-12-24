@@ -117,4 +117,14 @@
         number: input.number,
         fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
       });
-4) 로그인(인증작업 만들기) 
+4) 로그인(인증작업 만들기)
+4-1)로그인용 리액트페이지 만들기
+- material UI에서 제공하는 기본 템플릿 활용, SignIn과 SignUp 컴포넌트 작성
+- npm install react-router-dom 설치,
+  App.js로 가서 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+  <Router>로 감싸고 그 안에 <Route path="url" component={띄울컴포넌트}>삽입. 간단하게 상호간 라우팅 됨
+  해당 컴포넌트에서 바로 다른 경로로 이동하고 싶다면 <Link>를 사용(html의 a태그 기능)
+4-2)django인증 기능 구현
+- pip install django-rest-auth, pip install django-allauth설치 및 관련세팅. 링크의 설명 참조.
+ . https://freekim.tistory.com/8?category=887076
+ . https://junlab.tistory.com/214

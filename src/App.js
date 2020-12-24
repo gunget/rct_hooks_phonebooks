@@ -41,6 +41,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={SignIn} />
             <Route path="/SignUp" component={SignUp} />
+            <Route path="/main" component={FbStore} />
             <Route component={NotFound} />
             {/* 실제 배포시에는 이렇게 해서 API나 관리자로 접근하는 걸 막을 수도 있겠다. */}
             {/* <Route exact path='/' component={FbStore} /> */}

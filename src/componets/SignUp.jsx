@@ -57,19 +57,24 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          회원가입
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          noValidate
+          action="http://localhost:8000/rest-auth/registration/"
+          method="post"
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
                 autoComplete="fname"
-                name="ID"
+                name="Username"
                 variant="outlined"
                 required
                 fullWidth
-                id="ID"
-                label="ID"
+                id="Username"
+                label="Username"
                 autoFocus
               />
             </Grid>
@@ -78,10 +83,10 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
+                id="Email"
                 label="Email Address"
-                name="email"
-                autoComplete="email"
+                name="Email"
+                autoComplete="Email"
               />
             </Grid>
             <Grid item xs={12}>
@@ -89,10 +94,10 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
+                name="Password1"
                 label="Password"
-                type="password"
-                id="password"
+                type="Password"
+                id="Password1"
                 autoComplete="current-password"
               />
             </Grid>
@@ -101,16 +106,16 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="passwordCF"
+                name="Password2"
                 label="Password_Confirm"
-                type="passwordCF"
-                id="passwordCF"
+                type="password"
+                id="Password2"
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                label="이메일을 통해 마케팅 프로모션이나 업데이트를 받겠습니다."
               />
             </Grid>
           </Grid>
@@ -121,12 +126,12 @@ export default function SignUp() {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            회원가입
           </Button>
           <Grid container justify="center">
             <Grid item>
               <Link href="/" variant="body2">
-                Already have an account? Sign in
+                이미 계정이 있습니까? 로그인하세요.
               </Link>
             </Grid>
           </Grid>

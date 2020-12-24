@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -49,6 +51,19 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
 
+  const testSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      Username: "travis2",
+      Email: "travis@travis.com",
+      Password: "djg12345",
+    };
+    axios.put(
+      `http://localhost:8000/rest-auth/registration/`, //DB수정 구문
+      data
+    );
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -57,18 +72,23 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          로그인
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          noValidate
+          action="http://localhost:8000/rest-auth/login/"
+          method="post"
+        >
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="id"
-            label="Id"
-            name="id"
-            autoComplete="id"
+            id="Username"
+            label="Username"
+            name="Username"
+            autoComplete="Username"
             autoFocus
           />
           <TextField
@@ -76,10 +96,22 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Password"
+            type="email"
+            id="Email"
+            label="Email"
+            name="Email"
+            autoComplete="Email"
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
             type="password"
-            id="password"
+            name="Password"
+            label="Password"
+            id="Password"
             autoComplete="current-password"
           />
           {/* <FormControlLabel
@@ -92,13 +124,14 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={testSubmit}
           >
-            Sign In
+            로그인
           </Button>
           <Grid container justify="center">
             <Grid item>
               <Link href="/SignUp" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {"계정이 없습니까? 회원가입하세요."}
               </Link>
             </Grid>
           </Grid>

@@ -69,6 +69,9 @@ const FbReducer = (Fbooks, { type, payload }) => {
     case "SEARCH_NAME":
       return { ...Fbooks, search: payload };
 
+    case "SET_Fb_IDX":
+      return {...Fbooks, idx: payload};
+
     default:
       return "nothing requested";
   }
