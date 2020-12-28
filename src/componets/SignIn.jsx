@@ -48,20 +48,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn({ history }) {
   const classes = useStyles();
 
   const testSubmit = (e) => {
     e.preventDefault();
     const data = {
-      Username: "travis2",
-      Email: "travis@travis.com",
-      Password: "djg12345",
+      username: "travis2",
+      email: "travis@travis.com",
+      password: "djg12345",
     };
-    axios.put(
-      `http://localhost:8000/rest-auth/registration/`, //DB수정 구문
-      data
-    );
+    console.log(data);
+    axios
+      .post(
+        `http://localhost:8000/rest-auth/login/`, //DB수정 구문
+        data
+      )
+      .then(history.push("/main/"))
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -101,7 +107,6 @@ export default function SignIn() {
             label="Email"
             name="Email"
             autoComplete="Email"
-            autoFocus
           />
           <TextField
             variant="outlined"
