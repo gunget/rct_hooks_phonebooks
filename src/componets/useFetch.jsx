@@ -21,8 +21,18 @@ const useFetch = (callback) => {
       },
     ];
     // 기본적으로 axios.get(url), axios.post(url, data), axios.delete(url/id)를 통해서 쉽게 http 요청을 할 수 있습니다. 아주 좋은 모듈이죠?
+    const config = {
+      headers: {
+        Authorization:
+          "jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRyYXZpczIiLCJleHAiOjE2MDk3NDU0MDMsImVtYWlsIjoidHJhdmlzQHRyYXZpcy5jb20iLCJvcmlnX2lhdCI6MTYwOTE0MDYwM30.B3dwWKihZxJQJqwLZuPTirD04mK56h6cuLmKs8KLoTM",
+      },
+    };
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/fbooks");
+      // const response = await axios.get("http://127.0.0.1:8000/api/fbooks");
+      const response = await axios.get(
+        "http://127.0.0.1:8000/api/fbooks/",
+        config
+      );
       const fbFromDJG = await response.data[0];
       console.log("받아온 데이터:", fbFromDJG);
       callback({ type: "SET_INIT_DATA", payload: fbFromDJG });
