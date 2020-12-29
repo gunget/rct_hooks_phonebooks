@@ -20,16 +20,14 @@ const useFetch = (callback) => {
         number: "010-5551-0011",
       },
     ];
-
-    const jwt = JSON.parse(localStorage.getItem("jwt"));
+    // 기본적으로 axios.get(url), axios.post(url, data), axios.delete(url/id)를 통해서 쉽게 http 요청을 할 수 있습니다. 아주 좋은 모듈이죠?
     const config = {
       headers: {
-        Authorization: `jwt ${jwt.token}`,
+        Authorization:
+          "jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRyYXZpczIiLCJleHAiOjE2MDk4MDcxNjgsImVtYWlsIjoidHJhdmlzQHRyYXZpcy5jb20iLCJvcmlnX2lhdCI6MTYwOTE0MDYwM30.IYgBUsVkOTeeqpG2Nd-zC4JLBUufj3XSA1kkGN4Kv5w",
       },
     };
     try {
-      // const response = await axios.get("http://127.0.0.1:8000/api/fbooks");
-      // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRyYXZpczIiLCJleHAiOjE2MDk4MDcxNjgsImVtYWlsIjoidHJhdmlzQHRyYXZpcy5jb20iLCJvcmlnX2lhdCI6MTYwOTE0MDYwM30.IYgBUsVkOTeeqpG2Nd-zC4JLBUufj3XSA1kkGN4Kv5w
       const response = await axios.get(
         "http://127.0.0.1:8000/api/fbooks/",
         config

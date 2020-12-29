@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import axios from "axios";
 
 import Avatar from "@material-ui/core/Avatar";
@@ -46,28 +46,89 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(4, 0, 2),
   },
+  alert: {
+    color: "red",
+    textDecoration: "underline",
+  },
 }));
 
 export default function SignIn({ history }) {
   const classes = useStyles();
+  const alertMessage = useRef();
 
   const testSubmit = (e) => {
     e.preventDefault();
     const data = {
-      username: "travis2",
+      username: "travis7",
       email: "travis@travis.com",
       password: "djg12345",
     };
-    console.log(data);
-    axios
-      .post(
-        `http://localhost:8000/rest-auth/login/`, //DB수정 구문
-        data
-      )
-      .then(history.push("/main/"))
-      .catch((error) => {
-        console.log(error);
-      });
+
+    const checkUser = async () => {
+      const userRsp = await axios
+        .post("http://localhost:8000/rest-auth/login/", data)
+        .catch((error) => error.response); //return글자를 안써야 error값이 리턴된다!!!!!
+      //또 axios는 error라고만 하면 response데이터를 볼 수 없다. error.response라 해야 한다.
+      //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받은 변수명'으로 다음 작업을
+      //해야 한다.
+      if (userRsp.status === 200) {
+        getJwt();
+      }
+      console.log("error message:", userRsp);
+      alertMessage.current.innerHTML =
+        "ID 또는 비밀번호를 잘 못 입력하셨습니다.";
+      alertMessage.current.className = classes.alert;
+    };
+
+    function getJwt() {
+      axios
+        .post("http://127.0.0.1:8000/api-jwt-auth/", data)
+        .then((response) => console.log("새jwt:", response));
+    }
+    // const config = {
+    //   token:
+    //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRyYXZpczIiLCJleHAiOjE2MDk4MDk0MjMsImVtYWlsIjoidHJhdmlzQHRyYXZpcy5jb20iLCJvcmlnX2lhdCI6MTYwOTE0MDYwM30.UGrEEjY2fqqR6AhgLEh59onCkYNON5VonjA7G_lbzrU",
+    // };
+    // localStorage.setItem("Fbooks", JSON.stringify(Fbooks));
+
+    const jwtFromLS = JSON.parse(localStorage.getItem("jwt"));
+    if (jwtFromLS) {
+      axios
+        .post("http://localhost:8000/api-jwt-auth/refresh/", jwtFromLS)
+        .then((response) => {
+          localStorage.setItem("jwt", JSON.stringify(response.data));
+        })
+        .then(history.push("/main/"))
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      checkUser();
+
+      // axios
+      //   .post("http://localhost:8000/rest-auth/login/", data)
+      //   .then(getJwt())
+      //   .catch((error) => console.log("에러:", error));
+
+      // console.log("userRsp:", Rsp);
+      // if (userRsp.status === undefined) {
+      //   console.log("사용자 또는 비번이 잘못됐습니다");
+      // } else {
+      //   axios
+      //     .post("http://127.0.0.1:8000/api-jwt-auth/", data)
+      //     .then((response) => console.log(response));
+      // }
+    }
+
+    // axios
+    //   .post(
+    //     `http://localhost:8000/rest-auth/login/`, //DB수정 구문
+    //     data
+    //   )
+    //   .then(history.push("/main/"))
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   return (
@@ -83,8 +144,8 @@ export default function SignIn({ history }) {
         <form
           className={classes.form}
           noValidate
-          action="http://localhost:8000/rest-auth/login/"
-          method="post"
+          // action="http://localhost:8000/rest-auth/login/"
+          // method="post"
         >
           <TextField
             variant="outlined"
@@ -136,7 +197,7 @@ export default function SignIn({ history }) {
           <Grid container justify="center">
             <Grid item>
               <Link href="/SignUp" variant="body2">
-                {"계정이 없습니까? 회원가입하세요."}
+                <div ref={alertMessage}>"계정이 없습니까? 회원가입하세요."</div>
               </Link>
             </Grid>
           </Grid>
