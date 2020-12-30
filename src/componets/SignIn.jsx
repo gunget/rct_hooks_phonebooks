@@ -95,12 +95,6 @@ export default function SignIn({ history }) {
       }
     };
 
-    // const config = {
-    //   token:
-    //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRyYXZpczIiLCJleHAiOjE2MDk4MDk0MjMsImVtYWlsIjoidHJhdmlzQHRyYXZpcy5jb20iLCJvcmlnX2lhdCI6MTYwOTE0MDYwM30.UGrEEjY2fqqR6AhgLEh59onCkYNON5VonjA7G_lbzrU",
-    // };
-    // localStorage.setItem("Fbooks", JSON.stringify(Fbooks));
-
     const jwtFromLS = JSON.parse(localStorage.getItem("jwt"));
     if (jwtFromLS) {
       axios
@@ -114,31 +108,7 @@ export default function SignIn({ history }) {
         });
     } else {
       checkUser();
-
-      // axios
-      //   .post("http://localhost:8000/rest-auth/login/", data)
-      //   .then(getJwt())
-      //   .catch((error) => console.log("에러:", error));
-
-      // console.log("userRsp:", Rsp);
-      // if (userRsp.status === undefined) {
-      //   console.log("사용자 또는 비번이 잘못됐습니다");
-      // } else {
-      //   axios
-      //     .post("http://127.0.0.1:8000/api-jwt-auth/", data)
-      //     .then((response) => console.log(response));
-      // }
     }
-
-    // axios
-    //   .post(
-    //     `http://localhost:8000/rest-auth/login/`, //DB수정 구문
-    //     data
-    //   )
-    //   .then(history.push("/main/"))
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
 
   return (

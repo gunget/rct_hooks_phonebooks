@@ -44,7 +44,7 @@ const Search = ({ dispatch }) => {
   const classes = useStyles();
 
   return (
-    <form className={classes.form} onSubmit="false">
+    <form className={classes.form} onSubmit={false ? "value" : undefined}>
       <input hidden="hidden" />
       {/* 인풋창이 2개이상이면 엔터키 눌러도 submit실행 안됨. 이를 막기위함 */}
       <TextField

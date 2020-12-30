@@ -28,8 +28,6 @@ const useFetch = (callback) => {
       },
     };
     try {
-      // const response = await axios.get("http://127.0.0.1:8000/api/fbooks");
-      // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRyYXZpczIiLCJleHAiOjE2MDk4MDcxNjgsImVtYWlsIjoidHJhdmlzQHRyYXZpcy5jb20iLCJvcmlnX2lhdCI6MTYwOTE0MDYwM30.IYgBUsVkOTeeqpG2Nd-zC4JLBUufj3XSA1kkGN4Kv5w
       const response = await axios.get(
         "http://127.0.0.1:8000/api/fbooks/",
         config
@@ -46,7 +44,7 @@ const useFetch = (callback) => {
       callback({ type: "SET_INIT_DATA", payload: defaultFbooks });
       setTimeout(() => {
         setLoading(false); //서버에서 받아오는 시간을 loading으로 표현하려고 가짜로 넣은 것. setTimeout은 반드시 콜백함수속에 지연실행하고픈 내용을 넣어야 지연되어 실행된다.
-      }, 2000);
+      }, 1000);
       return console.log("서버에서 정보를 받아올 수 없습니다.");
     }
   };

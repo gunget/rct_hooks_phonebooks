@@ -28,18 +28,11 @@ const PhoneInfo = ({ data }) => {
   // const [valueName, setVlNm] = useState(data.name);
   // const [valueNumber, setVlNmbr] = useState(data.number);
 
-  const config = {
-    headers: {
-      Authorization: `jwt ${Fbooks.jwt.token}`,
-    },
-  };
-
   const FbRemove = (e) => {
     e.preventDefault();
     dispatch({ type: "DEL_Fb_DATA", payload: itemRef.current.dataset.id });
     axios.delete(
-      `http://localhost:8000/api/users/${itemRef.current.dataset.id}/`,
-      config
+      `http://localhost:8000/api/users/${itemRef.current.dataset.id}/`
     );
     if (
       itemRef.current.dataset.id ===
@@ -79,27 +72,29 @@ const PhoneInfo = ({ data }) => {
   //   setVlNmbr(numberRef.current.value);
   // };
 
-  const changeFb = (e) => {
-    e.preventDefault();
-    dispatch({
-      type: "CHANGE_Fb",
-      payload: {
-        id: itemRef.current.dataset.id,
+  const changeFb = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch({
+        type: "CHANGE_Fb",
+        payload: {
+          id: itemRef.current.dataset.id,
+          name: input.name,
+          number: input.number,
+        },
+      });
+      let data = {
         name: input.name,
         number: input.number,
-      },
-    });
-    let data = {
-      name: input.name,
-      number: input.number,
-      fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
-    };
-    axios.put(
-      `http://localhost:8000/api/users/${itemRef.current.dataset.id}/`, //DB수정 구문
-      data,
-      config
-    );
-  };
+        fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
+      };
+      axios.put(
+        `http://localhost:8000/api/users/${itemRef.current.dataset.id}/`, //DB수정 구문
+        data
+      );
+    },
+    [input]
+  );
 
   const classes = useStyles();
 

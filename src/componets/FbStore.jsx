@@ -48,9 +48,9 @@ const FbStore = (props) => {
   useEffect(() => {
     console.log("Fbstore쪽 useEffect");
     console.log(Fbooks);
-    if (Fbooks.jwt) {
-      localStorage.removeItem("jwt");
-    }
+    // if (Fbooks.jwt) {
+    //   localStorage.removeItem("jwt");
+    // }
   }, [Fbooks]);
 
   return (
@@ -61,7 +61,7 @@ const FbStore = (props) => {
     // </FbContext.Provider>
     <div className="Fbstore">
       <div className="inptForm">
-        <InputForm dispatch={dispatch} index={Fbooks.idx} />
+        <InputForm dispatch={dispatch} index={Fbooks.idx} jwt={Fbooks.jwt} />
       </div>
       <div className="srchForm">
         <Search dispatch={dispatch} />

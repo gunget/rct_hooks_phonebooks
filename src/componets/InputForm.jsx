@@ -20,41 +20,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const InputForm = ({ dispatch, index }) => {
+const InputForm = ({ dispatch, index, jwt }) => {
   const classes = useStyles();
   // const { dispatch } = useContext(FbContext);
   // let [idx, setIdx] = useState(index);
   const nameRef = useRef();
   const numberRef = useRef();
 
-  const addFbook = useCallback(
-    (e) => {
-      console.log("inputform데이터---", nameRef);
-      e.preventDefault();
-      dispatch({
-        type: "ADD_Fb_DATA",
-        payload: {
-          id: index + 1,
-          name: nameRef.current.value,
-          number: numberRef.current.value,
-          editing: false,
-        },
-      });
-
-      let data = {
+  const addFbook = (e) => {
+    console.log("inputform데이터---", nameRef);
+    e.preventDefault();
+    dispatch({
+      type: "ADD_Fb_DATA",
+      payload: {
+        id: index + 1,
         name: nameRef.current.value,
         number: numberRef.current.value,
-        fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
-      };
-      // axios.defaults.xsrfCookieName = "csrftoken";
-      // axios.defaults.xsrfHeaderName = "X-CSRFToken"; //웹사이트 해킹 방지용도
-      axios.post("http://127.0.0.1:8000/api/users/", data);
+        editing: false,
+      },
+    });
 
-      nameRef.current.value = "";
-      numberRef.current.value = "";
-    },
-    [index]
-  );
+    const config = {
+      headers: {
+        Authorization: `jwt ${jwt.token}`,
+      },
+    };
+    let data = {
+      name: nameRef.current.value,
+      number: numberRef.current.value,
+      fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
+    };
+
+    // axios.defaults.xsrfCookieName = "csrftoken";
+    // axios.defaults.xsrfHeaderName = "X-CSRFToken"; //웹사이트 해킹 방지용도
+    axios.post("http://127.0.0.1:8000/api/users/", data, config); // (url, data, 헤더정보)순
+
+    nameRef.current.value = "";
+    numberRef.current.value = "";
+  };
 
   console.log("InputForm 실행");
   return (
