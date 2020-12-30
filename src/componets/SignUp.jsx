@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
+import axios from "axios";
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -46,8 +48,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp({ history }) {
   const classes = useStyles();
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const pw1Ref = useRef();
+  const pw2Ref = useRef();
+  const alertRef = useRef(
+    "이메일을 통해 마케팅 프로모션이나 업데이트를 받겠습니다."
+  );
+  console.log(alertRef);
+
+  const submitNewUser = async (e) => {
+    e.preventDefault();
+    let data = {
+      username: nameRef.current.value,
+      email: emailRef.current.value,
+      password1: pw1Ref.current.value,
+      password2: pw2Ref.current.value,
+    };
+    console.log("등록시도 전 입력데이터", data);
+
+    const regMsg = await axios
+      .post("http://127.0.0.1:8000/rest-auth/registration/", data)
+      .catch((error) => {
+        alertRef.current = error.response;
+        return error.response;
+      });
+    console.log("등록시도 aixos후 메시지", regMsg);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,12 +88,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           회원가입
         </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          action="http://localhost:8000/rest-auth/registration/"
-          method="post"
-        >
+        <form className={classes.form} onSubmit={submitNewUser}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -76,6 +100,7 @@ export default function SignUp() {
                 id="username"
                 label="username"
                 autoFocus
+                inputRef={nameRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -87,6 +112,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                inputRef={emailRef}
               />
             </Grid>
             <Grid item xs={12}>
@@ -99,6 +125,7 @@ export default function SignUp() {
                 type="password"
                 id="password1"
                 autoComplete="current-password"
+                inputRef={pw1Ref}
               />
             </Grid>
             <Grid item xs={12}>
@@ -110,12 +137,14 @@ export default function SignUp() {
                 label="Password_Confirm"
                 type="password"
                 id="password2"
+                inputRef={pw2Ref}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="이메일을 통해 마케팅 프로모션이나 업데이트를 받겠습니다."
+                ref={alertRef}
+                label={alertRef.current}
               />
             </Grid>
           </Grid>
