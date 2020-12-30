@@ -18,6 +18,7 @@ const FbReducer = (Fbooks, { type, payload }) => {
         idx: _initIdx,
         information: _information,
         search: "",
+        jwt: "",
       };
 
     // 기존 localStorage로 작업할 때 버전
@@ -70,7 +71,10 @@ const FbReducer = (Fbooks, { type, payload }) => {
       return { ...Fbooks, search: payload };
 
     case "SET_Fb_IDX":
-      return {...Fbooks, idx: payload};
+      return { ...Fbooks, idx: payload };
+
+    case "SET_JWT":
+      return { ...Fbooks, jwt: payload };
 
     default:
       return "nothing requested";

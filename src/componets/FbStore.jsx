@@ -48,6 +48,9 @@ const FbStore = (props) => {
   useEffect(() => {
     console.log("Fbstore쪽 useEffect");
     console.log(Fbooks);
+    if (Fbooks.jwt) {
+      localStorage.removeItem("jwt");
+    }
   }, [Fbooks]);
 
   return (

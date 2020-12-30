@@ -59,32 +59,42 @@ export default function SignIn({ history }) {
   const testSubmit = (e) => {
     e.preventDefault();
     const data = {
-      username: "travis7",
+      username: "travis2",
       email: "travis@travis.com",
       password: "djg12345",
     };
 
+    function getSetJwt() {
+      axios
+        .post("http://127.0.0.1:8000/api-jwt-auth/", data)
+        .then((response) => {
+          console.log("새jwt:", response.data);
+          return response.data; //리턴값이 다음 then으로 넘겨짐
+        })
+        .then((data) => {
+          localStorage.setItem("jwt", JSON.stringify(data));
+          return data;
+        })
+        .then((data) => history.push("/main/")); //실제 데이터를 쓰진 않지만 이전 작업이 끝나고 실행되도록
+      //data를 더미 용도로 사용함
+    }
     const checkUser = async () => {
       const userRsp = await axios
         .post("http://localhost:8000/rest-auth/login/", data)
         .catch((error) => error.response); //return글자를 안써야 error값이 리턴된다!!!!!
       //또 axios는 error라고만 하면 response데이터를 볼 수 없다. error.response라 해야 한다.
-      //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받은 변수명'으로 다음 작업을
+      //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받는 변수명'으로 다음 작업을
       //해야 한다.
       if (userRsp.status === 200) {
-        getJwt();
+        getSetJwt();
+      } else {
+        console.log("error message:", userRsp);
+        alertMessage.current.innerHTML =
+          "ID 또는 비밀번호를 잘 못 입력하셨습니다.";
+        alertMessage.current.className = classes.alert;
       }
-      console.log("error message:", userRsp);
-      alertMessage.current.innerHTML =
-        "ID 또는 비밀번호를 잘 못 입력하셨습니다.";
-      alertMessage.current.className = classes.alert;
     };
 
-    function getJwt() {
-      axios
-        .post("http://127.0.0.1:8000/api-jwt-auth/", data)
-        .then((response) => console.log("새jwt:", response));
-    }
     // const config = {
     //   token:
     //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRyYXZpczIiLCJleHAiOjE2MDk4MDk0MjMsImVtYWlsIjoidHJhdmlzQHRyYXZpcy5jb20iLCJvcmlnX2lhdCI6MTYwOTE0MDYwM30.UGrEEjY2fqqR6AhgLEh59onCkYNON5VonjA7G_lbzrU",
