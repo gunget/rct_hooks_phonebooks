@@ -33,3 +33,23 @@ This installs the required dependencies
 To run the React project.
 $ npm start
 
+-------- 장고 프로젝트 github에서 받아 실행하는 방법
+1. 루트폴더를 만들고 vscode로 연다.
+2. 터미널(git bash)로 들어가 가상환경을 만든다.
+- python -m venv myvenv
+3. 가상환경을 activate한다.
+- source myvenv/Scripts/activate (git bash 상태에서)
+4. github에서 해당 프로젝트를 clone한다
+- 용량문제때문에 github에는 보통 venv, DB는 제외하고, 해당 프로젝트(startproject)만 올린다.
+- git clone URLs
+- 성공하면 git에설정한 프로젝트명으로 폴더가 생긴다.
+- 장고, 장고에서 사용한 패키지, gitIgnore에 추가했던 내용(mySetting)등은 들어있지 않다.
+5. 프로젝트 폴더로 이동해 장고와 사용했던 패키지들을 설치한다(git master상태).
+- pip install django
+ . python -m pip install --upgrade pip : pip 업그레이드 하기
+- pip install -r requirements.txt : 사용했던 패키지 설치
+ . 모두 myvenv내 Lib/SitePackage에 설치 된다.
+6. sqiite로 DB설정하기
+ . python manage.py makemigrations & python manage.py migrate
+7. 정상적으로 로드 되는지 보고 파일의 경로 설정등을 수정하기
+
