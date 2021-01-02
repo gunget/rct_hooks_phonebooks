@@ -2,6 +2,7 @@ import React from "react";
 import FbStore from "./componets/FbStore";
 import SignIn from "./componets/SignIn";
 import SignUp from "./componets/SignUp";
+import RestrictedRoute from "./componets/RestrictedRoute";
 import NotFound from "./componets/NotFound";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -41,7 +42,9 @@ function App() {
           <Switch>
             <Route exact path="/" component={SignIn} />
             <Route path="/SignUp" component={SignUp} />
-            <Route path="/main" component={FbStore} />
+            <RestrictedRoute path="/main" component={FbStore} />
+            {/* 사용자가 url을 직접입력해 landing Page로 접근하는 것 막기 위해 제한된 Route설정 */}
+            {/* <Route path="/main" component={FbStore} /> */}
             <Route component={NotFound} />
             {/* 실제 배포시에는 이렇게 해서 API나 관리자로 접근하는 걸 막을 수도 있겠다. */}
             {/* <Route exact path='/' component={FbStore} /> */}

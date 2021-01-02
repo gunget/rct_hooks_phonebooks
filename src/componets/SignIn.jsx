@@ -75,7 +75,13 @@ export default function SignIn({ history }) {
           localStorage.setItem("jwt", JSON.stringify(data));
           return data;
         })
-        .then((data) => history.push("/main/")); //실제 데이터를 쓰진 않지만 이전 작업이 끝나고 실행되도록
+        .then((data) =>
+          history.push({
+            pathname: "/main",
+            state: { isAuthenticated: true },
+          })
+        );
+      //실제 데이터를 쓰진 않지만 이전 작업이 끝나고 실행되도록
       //data를 더미 용도로 사용함
     }
     const checkUser = async () => {
