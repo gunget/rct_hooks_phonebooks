@@ -60,7 +60,7 @@ export default function SignIn({ history }) {
     e.preventDefault();
     const data = {
       username: "travis2",
-      email: "travis@travis.com",
+      // email: "travis@travis.com",
       password: "djg12345",
     };
 
@@ -138,7 +138,7 @@ export default function SignIn({ history }) {
             autoComplete="Username"
             autoFocus
           />
-          <TextField
+          {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -148,7 +148,7 @@ export default function SignIn({ history }) {
             label="Email"
             name="Email"
             autoComplete="Email"
-          />
+          /> */}
           <TextField
             variant="outlined"
             margin="normal"

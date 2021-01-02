@@ -17,7 +17,15 @@ export const FbContext = createContext();
 //props drilling이 필요한 상황에서는 그 컴포넌트만 Context를 사용하는 방식으로 접근해야
 //불필요한 재 렌더링을 막을 수 있다
 
-const FbStore = (props) => {
+const FbStore = ({ location, history }) => {
+  // if (
+  //   location.state == undefined ||
+  //   location.state == null ||
+  //   location.state == ""
+  // ) {
+  //   history.push("/"); // /main/ url을 직접 입력시 리다이렉트 시켜주는 함수
+  // }
+
   const [Fbooks, dispatch] = useReducer(FbReducer, {});
   const loading = useFetch(dispatch);
 

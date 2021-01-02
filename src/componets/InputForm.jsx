@@ -48,7 +48,8 @@ const InputForm = ({ dispatch, index, jwt }) => {
     let data = {
       name: nameRef.current.value,
       number: numberRef.current.value,
-      fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
+      fbooks: 1, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
+      // /api/user 로 접근이 안되면 jwt를 중지하고 보면 확인할 수 있다.
     };
 
     // axios.defaults.xsrfCookieName = "csrftoken";

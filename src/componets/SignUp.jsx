@@ -46,6 +46,11 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  alert: {
+    color: "red",
+    textDecoration: "underline",
+    margin: "0 auto",
+  },
 }));
 
 export default function SignUp({ history }) {
@@ -55,7 +60,7 @@ export default function SignUp({ history }) {
   const pw1Ref = useRef();
   const pw2Ref = useRef();
   const alertRef = useRef(
-    "이메일을 통해 마케팅 프로모션이나 업데이트를 받겠습니다."
+    "비밀번호는 문자숫자를 결합하여 8글자 이상이어야 합니다."
   );
   console.log(alertRef);
 
@@ -72,10 +77,19 @@ export default function SignUp({ history }) {
     const regMsg = await axios
       .post("http://127.0.0.1:8000/rest-auth/registration/", data)
       .catch((error) => {
-        alertRef.current = error.response;
+        alertRef.current.innerHTML =
+          "Username 또는 Email이 중복되었거나, Password가 다릅니다.";
+        alertRef.current.className = classes.alert;
         return error.response;
       });
     console.log("등록시도 aixos후 메시지", regMsg);
+
+    if (regMsg.status >= 200 && regMsg.status < 300) {
+      const confirm = window.confirm(
+        "정상적으로 가입되었습니다. 다시 로그인 하세요."
+      );
+      history.push("/");
+    }
   };
 
   return (
