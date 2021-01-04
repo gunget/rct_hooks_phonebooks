@@ -43,11 +43,11 @@ function App() {
             <Route exact path="/" component={SignIn} />
             <Route path="/SignUp" component={SignUp} />
             <RestrictedRoute path="/main" component={FbStore} />
-            {/* 사용자가 url을 직접입력해 landing Page로 접근하는 것 막기 위해 제한된 Route설정 */}
+            {/* 사용자가 url을 직접입력해 landing Page로 접근하는 것 막기 위해 제한된 Route설정
+            HOC형식을 빌어 RestrictedRoute가 인증여부를 검토 */}
             {/* <Route path="/main" component={FbStore} /> */}
             <Route component={NotFound} />
             {/* 실제 배포시에는 이렇게 해서 API나 관리자로 접근하는 걸 막을 수도 있겠다. */}
-            {/* <Route exact path='/' component={FbStore} /> */}
           </Switch>
         </Router>
       </Container>
