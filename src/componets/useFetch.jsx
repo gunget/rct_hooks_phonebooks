@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = (callback) => {
+const useFetch = (Fbooks, callback) => {
   const [loading, setLoading] = useState(true);
 
   axios.defaults.xsrfCookieName = "csrftoken";
@@ -27,6 +27,20 @@ const useFetch = (callback) => {
         Authorization: `jwt ${jwt.token}`,
       },
     };
+
+    // const config =
+    //   jwt !== null
+    //     ? {
+    //         headers: {
+    //           Authorization: `jwt ${jwt.token}`,
+    //         },
+    //       }
+    //     : {
+    //         headers: {
+    //           Authorization: `jwt ${Fbooks.jwt.token}`,
+    //         },
+    //       };
+
     try {
       const response = await axios.get(
         "http://127.0.0.1:8000/api/fbooks/",
@@ -39,6 +53,11 @@ const useFetch = (callback) => {
         setLoading(false); //서버에서 받아오는 시간을 loading으로 표현하려고 가짜로 넣은 것. setTimeout은 반드시 콜백함수속에 지연실행하고픈 내용을 넣어야 지연되어 실행된다.
         callback({ type: "SET_JWT", payload: jwt });
       }, 1000);
+
+      // //localstorage에 저장된 jwt없애기
+      // setTimeout(() => {
+      //   localStorage.removeItem("jwt");
+      // }, 1000);
     } catch (error) {
       const defaultFbooks = { id: 2, information: defaultUser, search: "" };
       callback({ type: "SET_INIT_DATA", payload: defaultFbooks });

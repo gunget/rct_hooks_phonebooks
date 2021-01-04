@@ -20,9 +20,10 @@ export const FbContext = createContext();
 //props drilling이 필요한 상황에서는 그 컴포넌트만 Context를 사용하는 방식으로 접근해야
 //불필요한 재 렌더링을 막을 수 있다
 
-const FbStore = ({ username, history }) => {
+const FbStore = ({ location, history }) => {
   const [Fbooks, dispatch] = useReducer(FbReducer, {});
-  const loading = useFetch(dispatch);
+  const loading = useFetch(Fbooks, dispatch);
+  const username = location.state.username;
 
   console.log("FbStore.js 실행");
   console.log("FbStore쪽 username:", username);
@@ -44,15 +45,13 @@ const FbStore = ({ username, history }) => {
     };
     axios
       .post("http://localhost:8000/rest-auth/logout/", config)
+      .then(localStorage.removeItem("jwt"))
       .then(history.push("/"));
   };
 
   useEffect(() => {
     console.log("Fbstore쪽 useEffect");
     console.log(Fbooks);
-    // if (Fbooks.jwt) {
-    //   localStorage.removeItem("jwt");
-    // }
   }, [Fbooks]);
 
   return (

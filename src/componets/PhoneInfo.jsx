@@ -92,7 +92,7 @@ const PhoneInfo = ({ data }) => {
     let data = {
       name: input.name,
       number: input.number,
-      fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
+      fbooks: 1, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
     };
     axios.put(
       `http://localhost:8000/api/users/${itemRef.current.dataset.id}/`, //DB수정 구문

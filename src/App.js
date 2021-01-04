@@ -46,7 +46,9 @@ function App() {
           <Switch>
             <Route exact path="/" component={SignIn} />
             <Route path="/SignUp" component={SignUp} />
-            <RestrictedRoute path="/main" component={FbStore} />
+            <Route path="/main" component={RestrictedRoute} />
+            {/* Route만이 location, history props를 쓸 수 있다. 하위에서 history를 쓰기위해
+            HOC를 이용하여 history를 내려준 것 */}
             {/* 사용자가 url을 직접입력해 landing Page로 접근하는 것 막기 위해 제한된 Route설정
             HOC형식을 빌어 RestrictedRoute가 인증여부를 검토 */}
             {/* <Route path="/main" component={FbStore} /> */}
