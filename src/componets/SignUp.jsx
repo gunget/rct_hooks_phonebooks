@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import axios from "axios";
+import CSRFToken from "./CSRFToken";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -103,6 +104,7 @@ export default function SignUp({ history }) {
           회원가입
         </Typography>
         <form className={classes.form} onSubmit={submitNewUser}>
+          <CSRFToken />
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField

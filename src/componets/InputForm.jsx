@@ -1,5 +1,6 @@
 import React, { useRef, useCallback } from "react";
 import axios from "axios";
+import CSRFToken from "./CSRFToken";
 
 // import { FbContext } from "./FbStore";
 import Button from "@material-ui/core/Button";
@@ -64,6 +65,7 @@ const InputForm = ({ dispatch, index, jwt }) => {
   return (
     <>
       <form className={classes.form}>
+        <CSRFToken />
         <TextField
           // autoFocus="true"
           label="Name"

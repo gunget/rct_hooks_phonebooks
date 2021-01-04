@@ -1,10 +1,13 @@
 import React, { createContext, useReducer, useEffect } from "react";
+import axios from "axios";
+
 import useFetch from "./useFetch.jsx";
 import FbReducer from "./FbReducer";
 import InputForm from "./InputForm";
 import Search from "./Search";
 import PhoneInfoList from "./PhoneInfoList";
 import LocalStorageBtn from "./LocalStorageBtn";
+import Button from "@material-ui/core/Button";
 import "../css/FbStore.css";
 
 export const FbContext = createContext();
@@ -17,19 +20,14 @@ export const FbContext = createContext();
 //props drilling이 필요한 상황에서는 그 컴포넌트만 Context를 사용하는 방식으로 접근해야
 //불필요한 재 렌더링을 막을 수 있다
 
-const FbStore = ({ location, history }) => {
-  // if (
-  //   location.state == undefined ||
-  //   location.state == null ||
-  //   location.state == ""
-  // ) {
-  //   history.push("/"); // /main/ url을 직접 입력시 리다이렉트 시켜주는 함수
-  // }
-
+const FbStore = ({ username, history }) => {
   const [Fbooks, dispatch] = useReducer(FbReducer, {});
   const loading = useFetch(dispatch);
 
   console.log("FbStore.js 실행");
+  console.log("FbStore쪽 username:", username);
+  // console.log("FbStore쪽 location:", location);
+  //얘는 라우터에 직접 물린 컴포넌트가 아니라 location등을 받아올 수 없다. props로 받아옴
 
   let searchedList = loading
     ? ""
@@ -37,21 +35,17 @@ const FbStore = ({ location, history }) => {
         return obj.name.indexOf(Fbooks.search) !== -1;
       });
 
-  // const saveToLS = (e) => {
-  //   e.preventDefault();
-  //   localStorage.setItem("Fbooks", JSON.stringify(Fbooks));
-  //   alert("전화번호부가 브라우저에 저장되었습니다.");
-  // };
-
-  // const deleteLS = (e) => {
-  //   e.preventDefault();
-  //   if (window.confirm("정말 전화번호부를 삭제하시겠습니까?")) {
-  //     localStorage.clear();
-  //     alert("삭제되었습니다");
-  //   } else {
-  //     alert("삭제가 취소되었습니다.");
-  //   }
-  // };
+  const btnLogout = (e) => {
+    e.preventDefault();
+    const config = {
+      headers: {
+        Authorization: `jwt ${Fbooks.jwt.token}`,
+      },
+    };
+    axios
+      .post("http://localhost:8000/rest-auth/logout/", config)
+      .then(history.push("/"));
+  };
 
   useEffect(() => {
     console.log("Fbstore쪽 useEffect");
@@ -80,6 +74,16 @@ const FbStore = ({ location, history }) => {
       <div className="lstgBtn">
         <LocalStorageBtn Fbooks={Fbooks} />
       </div>
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        disableElevation //약간 돌출된 효과 없애기
+        style={{ position: "absolute", top: "-75px", right: "0" }}
+        onClick={btnLogout}
+      >
+        {username} : Logout
+      </Button>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import axios from "axios";
+import CSRFToken from "./CSRFToken";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -54,34 +55,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn({ history }) {
   const classes = useStyles();
+  const nameRef = useRef();
+  const pwRef = useRef();
   const alertMessage = useRef();
 
   const testSubmit = (e) => {
     e.preventDefault();
     const data = {
-      username: "travis2",
+      username: nameRef.current.value,
       // email: "travis@travis.com",
-      password: "djg12345",
+      password: pwRef.current.value,
     };
 
-    function getSetJwt() {
+    function getSetJwt(nameFromServer) {
       axios
         .post("http://127.0.0.1:8000/api-jwt-auth/", data)
         .then((response) => {
-          console.log("새jwt:", response.data);
           return response.data; //리턴값이 다음 then으로 넘겨짐
         })
         .then((data) => {
+          console.log("새jwt:", data);
           localStorage.setItem("jwt", JSON.stringify(data));
           return data;
         })
-        .then((data) =>
+        .then((data) => {
           history.push({
             pathname: "/main",
-            state: { isAuthenticated: true },
-          })
-        );
-      //실제 데이터를 쓰진 않지만 이전 작업이 끝나고 실행되도록
+            state: { isAuthenticated: true, username: nameFromServer },
+          });
+        });
+      //실제 data를 쓰진 않지만 이전 작업이 끝나고 실행되도록
       //data를 더미 용도로 사용함
     }
     const checkUser = async () => {
@@ -92,7 +95,7 @@ export default function SignIn({ history }) {
       //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받는 변수명'으로 다음 작업을
       //해야 한다.
       if (userRsp.status === 200) {
-        getSetJwt();
+        getSetJwt(userRsp.data.user.username); //서버에서 로그인 성공후 받은 자료 활용
       } else {
         console.log("error message:", userRsp);
         alertMessage.current.innerHTML =
@@ -133,6 +136,8 @@ export default function SignIn({ history }) {
           // action="http://localhost:8000/rest-auth/login/"
           // method="post"
         >
+          <CSRFToken />
+          {/* 장고의 CSRF방지 기능 활용 컴포넌트 */}
           <TextField
             variant="outlined"
             margin="normal"
@@ -142,6 +147,7 @@ export default function SignIn({ history }) {
             label="Username"
             name="Username"
             autoComplete="Username"
+            inputRef={nameRef}
             autoFocus
           />
           {/* <TextField
@@ -164,6 +170,7 @@ export default function SignIn({ history }) {
             name="Password"
             label="Password"
             id="Password"
+            inputRef={pwRef}
             autoComplete="current-password"
           />
           {/* <FormControlLabel
