@@ -28,6 +28,10 @@ const useFetch = (Fbooks, callback) => {
       },
     };
 
+    // 좌상단의 PhoneBooks를 눌렀을때 main이 다시 로드 되는데, 이때 Fbooks가 다시 로딩되어
+    // usefetch가 일어남. 그러면 새로 useReducer도 정의 되는데, 그때문에 localstorage에서
+    // jwt를 삭제할 수 없음. 유일한 해법은 Fbooks상위에서 또다른 reducer를 사용하는 것
+
     // const config =
     //   jwt !== null
     //     ? {
